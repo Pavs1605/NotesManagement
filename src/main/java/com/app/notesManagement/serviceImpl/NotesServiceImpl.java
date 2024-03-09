@@ -1,5 +1,7 @@
 package com.app.notesManagement.serviceImpl;
 
+import com.app.notesManagement.exception.NotesNotFoundException;
+import com.app.notesManagement.exception.TitleAndTextContentRequiredException;
 import com.app.notesManagement.model.Notes;
 import com.app.notesManagement.model.Texts;
 import com.app.notesManagement.model.Words;
@@ -45,12 +47,23 @@ public class NotesServiceImpl implements NotesService {
     public Notes getNote(String noteId) {
 
         Optional<Notes> op =  notesRepository.findById(noteId);
-        return op.orElse(null);
+        if(op.isPresent())
+            return op.get();
+        else
+            throw new NotesNotFoundException(noteId);
     }
 
     @Override
     @Transactional
     public Notes createNote(Notes noteObj) {
+        if(noteObj == null)
+            throw new TitleAndTextContentRequiredException();
+
+        String textC = noteObj.getTextContent();
+        String title = noteObj.getTitle();
+
+        if( textC == null || textC.isEmpty() || title == null || title.isEmpty())
+            throw new TitleAndTextContentRequiredException();
 
         Texts textObj = new Texts();
         textObj.setTextContent(noteObj.getTextContent());
@@ -85,8 +98,10 @@ public class NotesServiceImpl implements NotesService {
 
            return notesRepository.save(note1);
        }
+       else
+           throw new NotesNotFoundException(noteId);
 
-       return null;
+
     }
 
     @Override
@@ -97,6 +112,9 @@ public class NotesServiceImpl implements NotesService {
             textsService.deleteText(text.getId());
             notesRepository.deleteById(noteId);
         }
+        else
+            throw new NotesNotFoundException(noteId);
+
 
     }
 
@@ -104,7 +122,11 @@ public class NotesServiceImpl implements NotesService {
     public Texts getTextsForNoteId(String noteId)
     {
         Optional<Notes> op = notesRepository.findById(noteId);
-        return op.map(Notes::getText).orElse(null);
+        if(op.isPresent())
+            return op.get().getText();
+        else
+            throw new NotesNotFoundException(noteId);
+
     }
     @Override
     public List<Notes> findByTitleOrTag(String searchTerm)
