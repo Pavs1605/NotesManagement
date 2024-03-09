@@ -1,9 +1,6 @@
-FROM openjdk:11-jre-slim
 
+FROM openjdk:23-jdk
 WORKDIR /app
-
-COPY target/*.jar app.jar
-
+COPY target/*.jar notesManagement.jar
 EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "notesManagement.jar"]
