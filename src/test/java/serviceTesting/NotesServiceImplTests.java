@@ -49,6 +49,7 @@ public class NotesServiceImplTests {
         noteObj.setId("note1");
         noteObj.setTextContent("personal personal personal note note this is ");
         noteObj.setTag(Tag.PERSONAL);
+        noteObj.setTitle("Personal Note");
         noteObj.setCreatedDate(LocalDate.now());
 
 
@@ -72,6 +73,7 @@ public class NotesServiceImplTests {
         notesAfterCreation.setTag(Tag.PERSONAL);
         notesAfterCreation.setCreatedDate(LocalDate.now());
         notesAfterCreation.setText(textsObj);
+        notesAfterCreation.setTitle("Personal Note");
 
     }
     @Test
