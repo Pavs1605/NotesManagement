@@ -23,8 +23,6 @@ import java.util.regex.Pattern;
 @Service
 public class NotesServiceImpl implements NotesService {
     NotesRepository notesRepository;
-    TextsRepository textsRepository;
-    WordsRepository wordsRepository;
 
     TextsService  textsService;
 
