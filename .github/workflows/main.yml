@@ -23,11 +23,11 @@ jobs:
         
     - run: mkdir -p target/
 
-    - run: echo hello > target/de-sy-file.jar
+    - run: echo hello > target/notesManagement.jar
 
     - uses: actions/upload-artifact@v1
       with:
-       name: de-sy-file
+       name: notesManagement
        path: target/
     -
       name: Login to Docker Hub
