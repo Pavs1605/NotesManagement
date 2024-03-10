@@ -244,8 +244,9 @@ HTTP Request: DELETE </br>
 <details>
 <Summary> Response payload  </Summary>
 <body>
-![img.png](img.png)
-![img_1.png](img_1.png)
+![image](https://github.com/Pavs1605/NotesManagement/blob/main/img.png)
+</br>
+![image](https://github.com/Pavs1605/NotesManagement/blob/main/img_1.png)
 </body>
 </details>
 
