@@ -37,8 +37,6 @@ Represents count of number of words for a text
 | Words      | _id, words_count                                                                        | Unique constraint on _id                                               |
 
 
-## API Endpoints
-Link - https://pavs1605.github.io/LibraryManagementAPI/
 
 ## Questionnaire 
 https://github.com/Pavs1605/NotesManagement/blob/main/Questionnaire.md
