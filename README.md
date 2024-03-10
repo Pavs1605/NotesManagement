@@ -41,7 +41,8 @@ Represents count of number of words for a text
 Link - https://pavs1605.github.io/LibraryManagementAPI/
 
 ## Github pipeline with tests & docker image 
-Last Workflow pipeline - https://github.com/Pavs1605/NotesManagement/actions/runs/8221716268 </br>
+Workflow pipeline - https://github.com/Pavs1605/NotesManagement/actions </br>
+Last Workflow pipeline - https://github.com/Pavs1605/NotesManagement/actions/runs/8221930572 </br>
 Latest Image uploaded to - https://hub.docker.com/repository/docker/nerdyhat29/clockboxci/general
 
 ## API Requests/Response 
