@@ -40,6 +40,9 @@ Represents count of number of words for a text
 ## API Endpoints
 Link - https://pavs1605.github.io/LibraryManagementAPI/
 
+## Questionnaire 
+https://github.com/Pavs1605/NotesManagement/blob/main/Questionnaire.md
+
 ## Github pipeline with tests & docker image 
 Workflow pipeline - https://github.com/Pavs1605/NotesManagement/actions </br>
 Last Workflow pipeline - https://github.com/Pavs1605/NotesManagement/actions/runs/8221930572 </br>
