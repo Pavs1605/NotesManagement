@@ -355,7 +355,13 @@ Search by title(case-insensitive) - http://localhost:8080/notes/search/title=Not
  </body>
 </details>
 
-
+## Mockito Tests 
+Service layer tests </br>
+* testUpdateNote()
+* testCreateNote()
+* textRequiredFieldsException()
+* testDeleteNote()
+  
 ## Pending Items
 1. Swagger API integration similar to - https://pavs1605.github.io/LibraryManagementAPI/
 2. Add more unit tests, logging, comments in the code
