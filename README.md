@@ -364,7 +364,8 @@ Service layer tests </br>
   
 ## Pending Items
 1. Swagger API integration similar to - https://pavs1605.github.io/LibraryManagementAPI/
-2. Add more unit tests, logging, comments in the code
-3. Can have checksum code for texts object for regeneration of words count everytime there is an update on text
-4. Currently, each note has  a single text, this can be extended to have multiple texts for a single note
-5. Pagination and sorting for search API's
+2. Add more unit tests, logging, comments, exception handling in the code
+3. Add user friendly id's of documents in collection for easy accessing
+4. Can have checksum code for texts object for regeneration of words count everytime there is an update on text
+5. Currently, each note has  a single text, this can be extended to have multiple texts for a single note
+6. Pagination and sorting for search API's
