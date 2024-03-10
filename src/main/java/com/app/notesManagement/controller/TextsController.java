@@ -44,18 +44,9 @@ public class TextsController {
     public Texts getTexts(@PathVariable("textId") String textId) {
         return textsService.getText(textId);
     }
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createTexts(@Valid @RequestBody Texts textObj, BindingResult bindingResult) {
-
-        Texts savedText = textsService.createText(textObj);
-        return ResponseEntity.ok(savedText);
-    }
     @PutMapping(value="/{textId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Texts updateText(@PathVariable("textId") String textId, @RequestBody Texts textObj) {
         return textsService.updateText(textId, textObj);
     }
 
-    public void deleteText(@PathVariable("textId") String textId) {
-        textsService.deleteText(textId);
-    }
 }

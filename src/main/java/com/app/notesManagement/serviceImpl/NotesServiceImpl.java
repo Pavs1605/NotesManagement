@@ -1,6 +1,7 @@
 package com.app.notesManagement.serviceImpl;
 
 import com.app.notesManagement.exception.NotesNotFoundException;
+import com.app.notesManagement.exception.TextsNotFoundException;
 import com.app.notesManagement.exception.TitleAndTextContentRequiredException;
 import com.app.notesManagement.model.Notes;
 import com.app.notesManagement.model.Texts;
@@ -56,6 +57,7 @@ public class NotesServiceImpl implements NotesService {
     @Override
     @Transactional
     public Notes createNote(Notes noteObj) {
+        //Todo Add log statements
         if(noteObj == null)
             throw new TitleAndTextContentRequiredException();
 
@@ -65,6 +67,7 @@ public class NotesServiceImpl implements NotesService {
         if( textC == null || textC.isEmpty() || title == null || title.isEmpty())
             throw new TitleAndTextContentRequiredException();
 
+        //Create a new text object which will create the child words object
         Texts textObj = new Texts();
         textObj.setTextContent(noteObj.getTextContent());
         Texts savedText = textsService.createText(textObj);
@@ -84,7 +87,8 @@ public class NotesServiceImpl implements NotesService {
 
     @Override
     public Notes updateNote(String noteId, Notes noteObj) {
-       Optional<Notes> note = notesRepository.findById(noteId);
+        //Todo Add log statements
+        Optional<Notes> note = notesRepository.findById(noteId);
        if(note.isPresent()) {
            Notes note1 = note.get();
            Optional.ofNullable(noteObj.getCreatedDate()).ifPresent(note1::setCreatedDate);
@@ -98,20 +102,27 @@ public class NotesServiceImpl implements NotesService {
 
            return notesRepository.save(note1);
        }
-       else
+       else {
+           //Todo Add log statements
            throw new NotesNotFoundException(noteId);
+       }
 
 
     }
 
     @Override
     public void deleteNote(String noteId) {
+        //Todo Add log statements
         Optional<Notes> op = notesRepository.findById(noteId);
         if(op.isPresent()) {
             Texts text = op.get().getText();
-            textsService.deleteText(text.getId());
-            notesRepository.deleteById(noteId);
-        }
+            if(text != null) {
+                textsService.deleteText(text.getId());
+                notesRepository.deleteById(noteId);
+            }
+            else
+                throw new TextsNotFoundException();
+        }            //Todo Add log statements
         else
             throw new NotesNotFoundException(noteId);
 

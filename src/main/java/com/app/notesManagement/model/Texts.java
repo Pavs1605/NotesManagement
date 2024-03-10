@@ -1,5 +1,6 @@
 package com.app.notesManagement.model;
 
+import com.app.notesManagement.model.enums.ConstantsUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -40,7 +41,7 @@ public class Texts {
 
 
     public String getWordsUrl() {
-        return id != null ? "/text/" + id + "/words" : null;
+        return id != null ?   "/" + ConstantsUtils.TEXTS_STR + "/" + id + "/" + ConstantsUtils.WORDS_STR  : null;
     }
     public String getId() {
         return id;

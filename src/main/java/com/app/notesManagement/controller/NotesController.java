@@ -6,6 +6,7 @@
     import com.app.notesManagement.service.NotesService;
     import com.app.notesManagement.service.TextsService;
     import com.app.notesManagement.service.WordsService;
+    import jakarta.servlet.http.HttpServletRequest;
     import jakarta.validation.Valid;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.data.domain.Page;
@@ -30,28 +31,35 @@
     @RestController
     @RequestMapping("/notes")
     public class NotesController {
+
+
         NotesService notesService;
         TextsService textsService;
         WordsService wordsService;
 
+
+        @Autowired
         public NotesController(NotesService notesService, TextsService textsService, WordsService wordsService) {
             this.notesService = notesService;
             this.textsService = textsService;
             this.wordsService = wordsService;
+
+
         }
 
         @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<Map<String, Object>> getAllNotes(@RequestParam(defaultValue = "0") int page,
                                                                @RequestParam(defaultValue = "10") int size) {
+
             Sort sortByDateDesc = Sort.by(Sort.Direction.DESC, "systemCreationDate");
             PageRequest pageable = PageRequest.of(page, size, sortByDateDesc);
             Page<Notes> resultPage = notesService.getAllNotes(pageable);
+
             Map<String, Object> response = new HashMap<>();
             response.put("notes", resultPage.getContent());
             response.put("currentPage", resultPage.getPageable().getPageNumber());
             response.put("currentSize", resultPage.getSize());
             response.put("totalPages", resultPage.getTotalPages());
-            response.put("remainingElements", resultPage.getTotalElements() - (long) resultPage.getNumber() * resultPage.getSize());
             response.put("totalElements", resultPage.getTotalElements());
 
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -71,9 +79,10 @@
             return notesService.updateNote(noteId, noteObj);
         }
 
-        @GetMapping("/search/")
+
+        @GetMapping("/search")
         public ResponseEntity<List<Notes>> searchNotesByTitleOrTag(@Param("searchTerm") String searchTerm) {
-            // Fetch notes based on the provided title and/or tags
+            //ToDo - Pagination for search
             List<Notes> matchingNotes = notesService.findByTitleOrTag(searchTerm);
 
             if (matchingNotes.isEmpty()) {
@@ -83,31 +92,29 @@
             }
         }
 
-//        @GetMapping("/search")
-//        public ResponseEntity<List<Notes>> searchNotesByTitle(@Param("title") String title) {
-//            // Fetch notes based on the provided title and/or tags
-//            List<Notes> matchingNotes = notesService.findByTitle(title);
-//
-//            if (matchingNotes.isEmpty()) {
-//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//            } else {
-//                return new ResponseEntity<>(matchingNotes, HttpStatus.OK);
-//            }
-//        }
-//
-//        @GetMapping("/search")
-//        public ResponseEntity<List<Notes>> searchNotesByTag(@Param("tag") String tag) {
-//            // Fetch notes based on the provided title and/or tags
-//            List<Notes> matchingNotes = notesService.findByTag(tag);
-//
-//            if (matchingNotes.isEmpty()) {
-//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//            } else {
-//                return new ResponseEntity<>(matchingNotes, HttpStatus.OK);
-//            }
-//        }
+        @GetMapping("/search/")
+        public ResponseEntity<List<Notes>> searchNotesByTag(@Param("tag") String tag) {
+            //ToDo - Pagination for search
+            List<Notes> matchingNotes = notesService.findByTag(tag);
 
+            if (matchingNotes.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(matchingNotes, HttpStatus.OK);
+            }
+        }
 
+        @GetMapping("/search/")
+        public ResponseEntity<List<Notes>> searchNotesByTitle(@Param("title") String title) {
+            //ToDo - Pagination for search
+            List<Notes> matchingNotes = notesService.findByTitle(title);
+
+            if (matchingNotes.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(matchingNotes, HttpStatus.OK);
+            }
+        }
         @DeleteMapping("{noteId}")
         public void deleteNote(@PathVariable("noteId") String noteId) {
             notesService.deleteNote(noteId);
@@ -136,4 +143,6 @@
             return textsService.updateText(textId, textObj);
 
         }
+
+
     }

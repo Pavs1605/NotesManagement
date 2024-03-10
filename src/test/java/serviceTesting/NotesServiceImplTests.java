@@ -1,5 +1,6 @@
 package serviceTesting;
 
+import com.app.notesManagement.exception.TitleAndTextContentRequiredException;
 import com.app.notesManagement.model.Notes;
 import com.app.notesManagement.model.Texts;
 import com.app.notesManagement.model.Words;
@@ -41,8 +42,8 @@ public class NotesServiceImplTests {
     NotesServiceImpl notesService;
     private Notes noteObj;
     private Notes notesAfterCreation;
-    private Words wordsObj;
-    private Texts textsObj;
+    private Notes notesAfterUpdate;
+    private Notes note2;
     @BeforeEach
     void setUp() {
         noteObj = new Notes();
@@ -52,8 +53,14 @@ public class NotesServiceImplTests {
         noteObj.setTitle("Personal Note");
         noteObj.setCreatedDate(LocalDate.now());
 
+        note2 = new Notes();
+        note2.setId("note1");
+        note2.setTextContent("personal personal personal note note this is ");
+        note2.setTag(Tag.PERSONAL);
+        note2.setCreatedDate(LocalDate.now());
 
-        wordsObj = new Words();
+
+        Words wordsObj = new Words();
         Map<String, Long> hm = new LinkedHashMap<>();
         hm.put("personal", 3L);
         hm.put("note", 2L);
@@ -62,7 +69,7 @@ public class NotesServiceImplTests {
         wordsObj.setWordsCount(hm);
         wordsObj.setId("word1");
 
-        textsObj = new Texts();
+        Texts textsObj = new Texts();
         textsObj.setId("text1");
         textsObj.setTextContent("personal personal personal note note this is ");
         textsObj.setWords(wordsObj);
@@ -75,6 +82,28 @@ public class NotesServiceImplTests {
         notesAfterCreation.setText(textsObj);
         notesAfterCreation.setTitle("Personal Note");
 
+        Words words1 = new Words();
+        Map<String, Long> map = new LinkedHashMap<>();
+        map.put("important",2L);
+        map.put("note", 2L);
+        map.put("this", 1L);
+        map.put("is", 1L);
+        words1.setWordsCount(map);
+        words1.setId("word1");
+
+        Texts texts1 = new Texts();
+        texts1.setId("text1");
+        texts1.setTextContent("important important  note note this is ");
+        texts1.setWords(words1);
+
+
+        notesAfterUpdate = new Notes();
+        notesAfterUpdate.setId("note1");
+        notesAfterUpdate.setTag(Tag.IMPORTANT);
+        notesAfterUpdate.setCreatedDate(LocalDate.now());
+        notesAfterUpdate.setText(texts1);
+        notesAfterUpdate.setTitle("Important Note");
+
     }
     @Test
     void testCreateNote() {
@@ -85,17 +114,37 @@ public class NotesServiceImplTests {
         assertNotNull(result);
         assertNull(result.getTextContent());
         assertEquals(result.getText().getTextContent(), (noteObj.getTextContent()));
+        assertEquals(result.getText().getWords().getWordsCount(), notesAfterCreation.getText().getWords().getWordsCount());
     }
 
     @Test
-    void testGetNote() {
-        String noteId = "note1";
-        when(notesRepository.findById(noteId)).thenReturn(Optional.of(notesAfterCreation));
+    void testUpdateNote() {
+        when(notesRepository.findById("note1")).thenReturn(Optional.ofNullable(notesAfterCreation));
+        when(notesRepository.save(any(Notes.class))).thenReturn(notesAfterUpdate);
 
-        Notes result = notesService.getNote(noteId);
+        Notes result = notesService.updateNote("note1",notesAfterCreation);
 
-        assertNotNull(result);
-        assertEquals(result.getTitle(), (noteObj.getTitle()));
+        assertEquals(result.getText().getTextContent(), (notesAfterUpdate.getText().getTextContent()));
+        assertEquals(result.getText().getWords().getWordsCount(), notesAfterUpdate.getText().getWords().getWordsCount());
     }
+
+    @Test
+    void textRequiredFieldsException() {
+
+        assertThrows(TitleAndTextContentRequiredException.class, () -> notesService.createNote(note2));
+
+    }
+
+    @Test
+    void testDeleteNote() {
+        when(notesRepository.findById("note1")).thenReturn(Optional.ofNullable(notesAfterCreation));
+
+        notesService.deleteNote("note1");
+        when(notesRepository.findById("note1")).thenReturn(null);
+
+        assertNull(notesRepository.findById("note1"));
+    }
+
+
 
 }

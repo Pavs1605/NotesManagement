@@ -1,6 +1,7 @@
 package com.app.notesManagement.model;
 
 
+import com.app.notesManagement.model.enums.ConstantsUtils;
 import com.app.notesManagement.model.enums.Tag;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -50,7 +51,7 @@ public class Notes {
     }
 
     public String getTextUrl() {
-        return id != null ? "/notes/" + id + "/text" : null;
+        return id != null ? "/" + ConstantsUtils.NOTES_STR + "/" + id +  "/" + ConstantsUtils.TEXTS_STR  : null;
     }
 
 

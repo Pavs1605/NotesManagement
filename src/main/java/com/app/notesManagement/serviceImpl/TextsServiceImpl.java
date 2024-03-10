@@ -1,5 +1,7 @@
 package com.app.notesManagement.serviceImpl;
 
+import com.app.notesManagement.exception.TextsNotFoundException;
+import com.app.notesManagement.exception.WordsNotFoundException;
 import com.app.notesManagement.model.Texts;
 import com.app.notesManagement.model.Words;
 import com.app.notesManagement.repository.TextsRepository;
@@ -35,12 +37,17 @@ public class TextsServiceImpl implements TextsService {
     @Override
     public Texts getText(String textId) {
         Optional<Texts> op = textsRepository.findById(textId);
-         return op.orElse(null);
+         if(op.isPresent())
+             return op.get();
+         else {
+             //todo add log statements
+             throw new TextsNotFoundException(textId);
+         }
     }
 
     @Override
     public Texts createText(Texts textObj) {
-
+        //todo add log statements
         // Create a new Words object
         Words savedWords = wordsService.createWord(textObj.getTextContent());
 
@@ -55,29 +62,44 @@ public class TextsServiceImpl implements TextsService {
 
     @Override
     public Texts updateText(String textId, Texts textObj) {
+        //todo add log statements
         Optional<Texts> op = textsRepository.findById(textId);
         if(op.isPresent()){
 
             Words words= op.get().getWords();
             if(words != null) {
                 String wordId = words.getId();
+                //Todo- have a checksum to check if texts has changed and then regenerate the words count
                 Words savedWords = wordsService.updateWord(wordId, textObj.getTextContent());
                 textObj.setWords(savedWords);
                 return textsRepository.save(textObj);
             }
+            else{
+                //todo add log statements
+                throw new WordsNotFoundException();
+            }
+        }
+        else {
+            //todo add log statements
+            throw new TextsNotFoundException(textId);
         }
 
-        return null;
+
 
     }
 
     @Override
     public void deleteText(String textId) {
+        //ToDo - add log statements
         Optional<Texts> op = textsRepository.findById(textId);
         if(op.isPresent()){
             Words wordObj = op.get().getWords();
             wordsService.deleteWord(wordObj.getId());
             textsRepository.deleteById(textId);
+        }
+        else {
+            //ToDo - add log statements
+            throw new TextsNotFoundException(textId);
         }
 
     }

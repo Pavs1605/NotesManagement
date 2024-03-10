@@ -1,5 +1,6 @@
 package com.app.notesManagement.serviceImpl;
 
+import com.app.notesManagement.exception.WordsNotFoundException;
 import com.app.notesManagement.model.Words;
 import com.app.notesManagement.repository.WordsRepository;
 import com.app.notesManagement.service.WordsService;
@@ -35,6 +36,7 @@ public class WordsServiceImpl implements WordsService {
 
     @Override
     public Words createWord(String textContent) {
+        //todo - add log statements
         Map<String, Long> wordsCount = generateWords(textContent);
         Words word = new Words();
         word.setWordsCount(wordsCount);
@@ -44,6 +46,7 @@ public class WordsServiceImpl implements WordsService {
 
     @Override
     public Words updateWord(String wordId, String textContent) {
+        //todo - add log statements
         Optional<Words> op = wordsRepository.findById(wordId);
         if(op.isPresent()){
             Words wordObj = op.get();
@@ -51,8 +54,11 @@ public class WordsServiceImpl implements WordsService {
             wordObj.setWordsCount(wordsCount);
             return wordsRepository.save(wordObj);
         }
+        else {
+            //todo - add log statements
+            throw new WordsNotFoundException(wordId);
+        }
 
-        return null;
 
     }
 
@@ -69,7 +75,10 @@ public class WordsServiceImpl implements WordsService {
 
         while (matcher.find()) {
             String str = matcher.group();
-            map.put(str, map.getOrDefault(str, 1L) + 1);
+            if(map.containsKey(str))
+                map.put(str, map.get(str)+1);
+            else
+                map.put(str, 1L);
         }
 
         return sortHashMapByValues(map);

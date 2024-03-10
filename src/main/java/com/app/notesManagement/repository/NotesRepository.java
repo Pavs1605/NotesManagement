@@ -19,8 +19,8 @@ public interface NotesRepository extends MongoRepository<Notes, String> {
     @Query(value = "{ 'title' : {$regex:?0,$options:'i'} }")
     List<Notes> findByTitle(String title);
 
-    @Query(value = "{ 'tag' : {$regex:?0,$options:'i'} }")
-    List<Notes> findByTag(String title);
+
+    List<Notes> findByTag(String tag);
 
     @Query(value = "{ $or: [ { 'title' : {$regex:?0,$options:'i'} }, { 'tag' : {$regex:?0,$options:'i'} } ] }")
     List<Notes> findByTitleOrTag(String searchTerm);
