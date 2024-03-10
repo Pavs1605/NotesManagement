@@ -289,6 +289,9 @@ Get all words - http://localhost:8080/words </br>
 Search by tag (case-sensitive)    - http://localhost:8080/notes/search/tag=IMPORTANT </br>
 Search by title(case-insensitive) - http://localhost:8080/notes/search/title=Note </br>
 
+## Mongo DB Screenshots
+
+
 ## Pending Items
 1. Swagger API integration similar to - https://pavs1605.github.io/LibraryManagementAPI/
 2. Add more unit tests, logging, comments in the code

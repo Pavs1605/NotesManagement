@@ -6,15 +6,11 @@
     import com.app.notesManagement.service.NotesService;
     import com.app.notesManagement.service.TextsService;
     import com.app.notesManagement.service.WordsService;
-    import jakarta.servlet.http.HttpServletRequest;
     import jakarta.validation.Valid;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.data.domain.Page;
     import org.springframework.data.domain.PageRequest;
-    import org.springframework.data.domain.Pageable;
     import org.springframework.data.domain.Sort;
-    import org.springframework.data.repository.query.Param;
-    import org.springframework.data.web.PageableDefault;
     import org.springframework.http.HttpStatus;
     import org.springframework.http.MediaType;
     import org.springframework.http.ResponseEntity;
@@ -81,40 +77,36 @@
 
 
         @GetMapping("/search")
-        public ResponseEntity<List<Notes>> searchNotesByTitleOrTag(@Param("searchTerm") String searchTerm) {
+        public ResponseEntity<List<Notes>> searchNotes(
+                @RequestParam(value = "title", required = false) String title,
+                @RequestParam(value = "tag", required = false) String tag,
+                @RequestParam(value = "searchTerm", required = false) String searchTerm) {
             //ToDo - Pagination for search
-            List<Notes> matchingNotes = notesService.findByTitleOrTag(searchTerm);
+            List<Notes> matchingNotes;
+
+            if (searchTerm != null) {
+                // Search by both title and tag
+                matchingNotes = notesService.findByTitleOrTag(searchTerm);
+            } else if (title != null) {
+                // Search by title
+                matchingNotes = notesService.findByTitle(title);
+            } else if (tag != null) {
+                // Search by tag
+                matchingNotes = notesService.findByTag(tag);
+            } else {
+                // Handle invalid search parameters
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
 
             if (matchingNotes.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
                 return new ResponseEntity<>(matchingNotes, HttpStatus.OK);
             }
         }
 
-        @GetMapping("/search/")
-        public ResponseEntity<List<Notes>> searchNotesByTag(@Param("tag") String tag) {
-            //ToDo - Pagination for search
-            List<Notes> matchingNotes = notesService.findByTag(tag);
 
-            if (matchingNotes.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            } else {
-                return new ResponseEntity<>(matchingNotes, HttpStatus.OK);
-            }
-        }
 
-        @GetMapping("/search/")
-        public ResponseEntity<List<Notes>> searchNotesByTitle(@Param("title") String title) {
-            //ToDo - Pagination for search
-            List<Notes> matchingNotes = notesService.findByTitle(title);
-
-            if (matchingNotes.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            } else {
-                return new ResponseEntity<>(matchingNotes, HttpStatus.OK);
-            }
-        }
         @DeleteMapping("{noteId}")
         public void deleteNote(@PathVariable("noteId") String noteId) {
             notesService.deleteNote(noteId);

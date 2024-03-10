@@ -14,10 +14,10 @@ public class Words {
     String id;
 
 
-    @DBRef
-    private Texts text;
-
-    private String textId;
+//    @DBRef
+//    private Texts text;
+//
+//    private String textId;
     @Field(name = "words_count")
     Map wordsCount;
 
@@ -40,13 +40,13 @@ public class Words {
         this.id = id;
     }
 
-    public Texts getText() {
-        return text;
-    }
-
-    public void setText(Texts text) {
-        this.text = text;
-    }
+//    public Texts getText() {
+//        return text;
+//    }
+//
+//    public void setText(Texts text) {
+//        this.text = text;
+//    }
 
     public Map getWordsCount() {
         return wordsCount;

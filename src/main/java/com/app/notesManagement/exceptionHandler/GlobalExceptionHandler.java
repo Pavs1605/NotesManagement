@@ -1,6 +1,5 @@
 package com.app.notesManagement.exceptionHandler;
 import com.app.notesManagement.exception.*;
-import com.app.notesManagement.model.Words;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
