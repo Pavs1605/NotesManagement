@@ -14,8 +14,9 @@ Please reflect on your experience of working with this/these task(s).
   
 3.What would you do better if you have more time?
 * Swagger API integration similar to - https://pavs1605.github.io/LibraryManagementAPI
-* Add more unit tests, logging, comments, more exception handling in the code
-* Can have checksum code for texts object for regeneration of words count everytime there is an update on text
+* Add more unit tests, logging, comments, exception handling in the code
+* Add user friendly id's of documents in collection for easy accessing
+* Can have checksum code for texts object for regeneration of words count, everytime there is an update on text. We can compare this checksum, if there is a change in checksum, regenerate the words count, else ignore.
 * Currently, each note has a single text, this can be extended to have multiple texts for a single note
 * Pagination and sorting for search API's
 
