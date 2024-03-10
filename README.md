@@ -291,23 +291,66 @@ Search by title(case-insensitive) - http://localhost:8080/notes/search/title=Not
 
 ## Mongo DB Screenshots
 * Notes collection </br>
+<details>
+<Summary> Screenshot </Summary>
+<body>
 ![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/45ea1d3e-52d6-4d36-8354-b599e16bdd4a)
+</body>
+</details>
 
 * Text Collection </br>
+<details>
+<Summary> Screenshot </Summary>
+<body>
 ![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/ec062f9c-7801-478d-aad3-aa3adba937ce)
+</body>
+</details>
 
 * Words Collection </br>
+<details>
+<Summary> Screenshot </Summary>
+<body>
 ![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/15dd443b-4d26-49ea-a229-b79e3a3db372)
+</body>
+</details>
 
 * Indexes/Validations on notes & text collection
+ <details>
+<Summary> Screenshot </Summary>
+<body>
 ![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/f2dbe763-7aaa-4362-bfc8-6942213bc2a4) </br>
+</body>
+</details>
+
+<details>
+<Summary> Screenshot </Summary>
+<body>
 ![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/cae9fc2e-a2a1-44f7-9901-9ec413cf319b)  </br>
+</body>
+</details>
+
+<details>
+<Summary> Screenshot </Summary>
+<body>
 ![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/3fa204fc-f8f5-4125-8a46-300bc31922e1)  </br>
+</body>
+</details>
 
 
 * Aggregation stages
+  <details>
+<Summary> Screenshot </Summary>
+<body>
  ![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/192306d1-5314-494c-b919-1e990852c6cc)  </br>
+ </body>
+</details>
+
+<details>
+<Summary> Screenshot </Summary>
+<body>
  ![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/9149ce99-523f-4020-bdf3-c01a775fba8a)
+ </body>
+</details>
 
 
 ## Pending Items
