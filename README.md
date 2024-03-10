@@ -41,7 +41,7 @@ Represents count of number of words for a text
 Link - https://pavs1605.github.io/LibraryManagementAPI/
 
 ## Github pipeline with tests & docker image 
-Workflow pipeline - https://github.com/Pavs1605/NotesManagement/actions/runs/8214199427/job/22466417453  <br />
+Last Workflow pipeline - https://github.com/Pavs1605/NotesManagement/actions/runs/8221716268 </br>
 Latest Image uploaded to - https://hub.docker.com/repository/docker/nerdyhat29/clockboxci/general
 
 ## API Requests/Response 
@@ -290,6 +290,24 @@ Search by tag (case-sensitive)    - http://localhost:8080/notes/search/tag=IMPOR
 Search by title(case-insensitive) - http://localhost:8080/notes/search/title=Note </br>
 
 ## Mongo DB Screenshots
+* Notes collection </br>
+![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/45ea1d3e-52d6-4d36-8354-b599e16bdd4a)
+
+* Text Collection </br>
+![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/ec062f9c-7801-478d-aad3-aa3adba937ce)
+
+* Words Collection </br>
+![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/15dd443b-4d26-49ea-a229-b79e3a3db372)
+
+* Indexes/Validations on notes & text collection
+![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/f2dbe763-7aaa-4362-bfc8-6942213bc2a4) </br>
+![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/cae9fc2e-a2a1-44f7-9901-9ec413cf319b)  </br>
+![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/3fa204fc-f8f5-4125-8a46-300bc31922e1)  </br>
+
+
+* Aggregation stages
+ ![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/192306d1-5314-494c-b919-1e990852c6cc)  </br>
+ ![image](https://github.com/Pavs1605/NotesManagement/assets/18229871/9149ce99-523f-4020-bdf3-c01a775fba8a)
 
 
 ## Pending Items
